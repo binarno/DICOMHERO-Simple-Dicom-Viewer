@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Imebra V5 Demo</string>
+    <string name="image_description">DICOM image</string>
+    <string name="text_description">Patient name</string>
+    <string name="button_description">Click to load a DICOM file</string>
+    <string name="button_text">Load a DICOM file</string>
+</resources>
