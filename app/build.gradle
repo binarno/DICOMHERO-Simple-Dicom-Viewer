@@ -28,7 +28,7 @@ task('downloadImebra', type: Copy) {
     mkdir project.file("libs")
     def f = project.file('libs/imebrajni5-release.aar')
     if (!f.exists()) {
-        new URL('https://bitbucket.org/binarno/imebra/downloads/imebrajni5-release.aar').withInputStream { i -> f.withOutputStream { it << i } }
+        new URL('https://bitbucket.org/binarno/imebra_git/downloads/imebrajni5-release.aar').withInputStream { i -> f.withOutputStream { it << i } }
     }
 }
 
