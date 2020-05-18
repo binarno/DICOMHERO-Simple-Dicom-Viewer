@@ -27,13 +27,12 @@ public class PushToImebraPipe implements Runnable {
 
     @Override
     public void run() {
+        StreamWriter pipeWriter = new StreamWriter(mImebraPipe.getStreamOutput());
         try {
 
             // Buffer used to read from the stream
             byte[] buffer = new byte[128000];
             MutableMemory memory = new MutableMemory();
-
-            StreamWriter pipeWriter = new StreamWriter(mImebraPipe.getStreamOutput());
 
             // Read until we reach the end
             for (int readBytes = mStream.read(buffer); readBytes >= 0; readBytes = mStream.read(buffer)) {
@@ -49,6 +48,7 @@ public class PushToImebraPipe implements Runnable {
         catch(IOException e) {
         }
         finally {
+            pipeWriter.delete();
             mImebraPipe.close(50000);
         }
     }
