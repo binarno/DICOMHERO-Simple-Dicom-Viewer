@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 // can read to only local files
                 DataSet loadDataSet = CodecFactory.load(new StreamReader(imebraPipe.getStreamInput()));
 
+
                 // Get the first frame from the dataset (after the proper modality transforms
                 // have been applied).
                 Image dicomImage = loadDataSet.getImageApplyModalityTransform(0);
@@ -99,6 +100,12 @@ public class MainActivity extends AppCompatActivity {
                 // Use a DrawBitmap to build a stream of bytes that can be handled by the
                 // Android Bitmap class.
                 TransformsChain chain = new TransformsChain();
+
+                if(ColorTransformsFactory.isMonochrome(dicomImage.getColorSpace()))
+                {
+                    VOILUT voilut = new VOILUT(VOILUT.getOptimalVOI(dicomImage, 0, 0, dicomImage.getWidth(), dicomImage.getHeight()));
+                    chain.addTransform(voilut);
+                }
                 DrawBitmap drawBitmap = new DrawBitmap(chain);
                 Memory memory = drawBitmap.getBitmap(dicomImage, drawBitmapType_t.drawBitmapRGBA, 4);
 
