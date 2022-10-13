@@ -9,10 +9,47 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+        release {
+            storeFile file('../signing/release.keystore')
+            storePassword System.getenv("KEYSTORE_PASS")
+            keyAlias System.getenv("ALIAS_NAME")
+            keyPassword System.getenv("ALIAS_PASS")
+        }
+        debug {
+            storePassword "android"
+            keyPassword "android"
+            keyAlias "androiddebugkey"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (System.getenv("CI_SERVER")) { // gitlab
+                println "I run on Gitlab and use RELEASE signing"
+                signingConfig signingConfigs.release
+            } else if (file('../signing/release.keystore').exists()) {
+                if (System.getenv("KEYSTORE_PASS") == null || System.getenv("ALIAS_NAME") == null || System.getenv("ALIAS_PASS") == null) {
+                    println "I run somewhere else and I use DEBUG signing because variables are not set !"
+                    signingConfig signingConfigs.debug
+                } else {
+                    println "I run somewhere else and I use RELEASE signing"
+                    signingConfig signingConfigs.release
+                }
+            } else {
+                println "I run somewhere else and I use debug signing"
+                signingConfig signingConfigs.debug
+            }
+        }
+        debug {
+            if (System.getenv("CI") == "true") { // Github action
+                signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
+            }
+            applicationIdSuffix ".debug"
+            versionNameSuffix ".debug"
         }
     }
     namespace 'com.binarno.imebrav5demo'
