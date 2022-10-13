@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     compileSdkVersion 33
@@ -6,8 +7,9 @@ android {
         applicationId "com.binarno.imebrav5demo"
         minSdkVersion 26
         targetSdkVersion 33
-        versionCode 1
-        versionName "1.0"
+        versionCode getGitCommitCount()
+        versionName getTag()
+        buildConfigField "String", 'GIT_REPOSITORY', "\"" + getGitOriginRemote() + "\""
     }
     signingConfigs {
         release {
@@ -52,6 +54,22 @@ android {
             versionNameSuffix ".debug"
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (variant.name == "release") {
+                def builtType = variant.buildType.name
+                def vName = variant.versionName
+                def vCode = variant.versionCode
+                // def flavor = variant.flavorName
+                def newName = "ImebraDicom"
+                newName += "-${vName}-${vCode}-${builtType}.apk"
+                outputFileName = newName
+            }
+            println "$variant.name: name is $outputFileName"
+        }
+    }
+
     namespace 'com.binarno.imebrav5demo'
 }
 
@@ -60,6 +78,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.github.hannesa2:githubAppUpdate:1.5'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation 'androidx.core:core-ktx:1.9.0'
 }
 
 task('downloadImebra', type: Copy) {
@@ -71,3 +92,21 @@ task('downloadImebra', type: Copy) {
 }
 
 build.dependsOn downloadImebra
+
+static def getGitOriginRemote() {
+    def process = "git remote -v".execute()
+    def values = process.text.toString().trim().split("\\r\\n|\\n|\\r")
+
+    def found = values.find { it.startsWith("origin") && it.endsWith("(push)") }
+    return found.replace("origin", "").replace("(push)", "").replace(".git", "").trim()
+}
+
+static def getGitCommitCount() {
+    def process = "git rev-list HEAD --count".execute()
+    return process.text.toInteger()
+}
+
+static def getTag() {
+    def process = "git describe --tags".execute()
+    return process.text.toString().trim()
+}

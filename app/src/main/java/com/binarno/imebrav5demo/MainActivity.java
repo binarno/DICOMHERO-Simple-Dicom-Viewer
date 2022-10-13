@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         // We will use the ImageView widget to display the DICOM image
         mImageView = findViewById(R.id.imageView);
         mTextView = findViewById(R.id.textView);
-
+        AppUpdater.INSTANCE.check(this);
     }
 
     /*
