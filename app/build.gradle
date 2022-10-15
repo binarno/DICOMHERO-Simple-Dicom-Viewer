@@ -4,7 +4,7 @@ apply plugin: 'org.jetbrains.kotlin.android'
 android {
     compileSdkVersion 33
     defaultConfig {
-        applicationId "com.binarno.imebrav5demo"
+        applicationId "info.hannes.dicom"
         minSdkVersion 26
         targetSdkVersion 33
         versionCode getGitCommitCount()
@@ -69,8 +69,11 @@ android {
             println "$variant.name: name is $outputFileName"
         }
     }
+    buildFeatures {
+        viewBinding true
+    }
 
-    namespace 'com.binarno.imebrav5demo'
+    namespace 'info.hannes.dicom'
 }
 
 dependencies {
