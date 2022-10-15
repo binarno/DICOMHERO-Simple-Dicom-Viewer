@@ -1,5 +1,5 @@
-Imebra V5 demo: Simple DICOM viewer
-===================================
+DICOM V5 viewer
+===============
 
 This Android application implements a simple DICOM viewer using the `C++/Java/Python DICOM library Imebra <https://imebra.com>`_.
 
