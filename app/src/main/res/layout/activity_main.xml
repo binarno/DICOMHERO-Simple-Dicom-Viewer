@@ -8,7 +8,6 @@
     android:layout_margin="0dp"
     tools:context=".MainActivity">
 
-
     <LinearLayout
         android:layout_width="368dp"
         android:layout_height="495dp"
@@ -44,14 +43,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/buttonLoadDicomFile"
+        <SeekBar
+            android:id="@+id/seekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:layout_weight="0"
-            android:contentDescription="@string/button_description"
-            android:padding="0dp"
-            android:text="@string/button_text" />
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="20dp"
+            tools:max="2" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
