@@ -25,7 +25,7 @@
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="100">
 
-        <ImageView
+        <com.ortiz.touchview.TouchImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
