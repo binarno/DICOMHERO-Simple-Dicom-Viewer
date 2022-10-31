@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         if ("content" == data.scheme) {
             val documentsTree = DocumentFile.fromTreeUri(application, data)
             childDocuments = documentsTree?.listFiles()?.toCachingList()
-                ?.filter { it.type == "application/dicom" }
+//                ?.filter { it.type == "application/dicom" }
                 ?.sortedBy {
                     it.name
                 }
@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
             binding.patientView.text = loadDataSet.getPatientName(TagId(0x10, 0x10), 0, PatientName("Undefined", "", "")).alphabeticRepresentation
         } catch (e: Exception) {
             val dlgAlert = AlertDialog.Builder(this)
-            dlgAlert.setMessage("Problem with image ${data.toString()}")
+            dlgAlert.setMessage("Problem with image $data")
             dlgAlert.setTitle(e.javaClass.name)
             dlgAlert.setPositiveButton("OK") { dialog, which ->
                 //dismiss the dialog
