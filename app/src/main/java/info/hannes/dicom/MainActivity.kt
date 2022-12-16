@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
 import com.imebra.*
 import info.hannes.dicom.AppUpdater.checkUpdate
+import info.hannes.dicom.AppUpdater.checkUpdateDialog
 import info.hannes.dicom.databinding.ActivityMainBinding
 import java.nio.ByteBuffer
 
@@ -40,6 +41,8 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(p0: SeekBar?) = Unit
         })
         // We will use the ImageView widget to display the DICOM image
+        checkUpdateDialog(this)
+
         checkUpdate(this)
     }
 
