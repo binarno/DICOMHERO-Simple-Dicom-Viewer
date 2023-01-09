@@ -11,7 +11,7 @@ jobs:
         java_version: [ 11 ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.3.0
         with:
           fetch-depth: 0
       - name: Install JDK ${{ matrix.java_version }}
@@ -41,7 +41,7 @@ jobs:
         java_version: [ 11 ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.3.0
         with:
           fetch-depth: 0
       - name: Install JDK ${{ matrix.java_version }}
@@ -93,7 +93,7 @@ jobs:
     runs-on: macOS-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.3.0
         with:
           fetch-depth: 0
       - name: Install JDK
