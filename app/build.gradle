@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 34
     defaultConfig {
-        applicationId "com.binarno.imebrav5demo"
-        minSdkVersion 26
-        targetSdkVersion 28
+        applicationId "com.binarno.dicomhero6demo"
+        minSdkVersion 28
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
     }
@@ -18,18 +18,17 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }
 
-task('downloadImebra', type: Copy) {
+task('downloadDicomhero', type: Copy) {
     mkdir project.file("libs")
-    def f = project.file('libs/imebrajni5-release.aar')
+    def f = project.file('libs/dicomhero6-release-6.0.0.aar')
     if (!f.exists()) {
-        new URL('https://imebra.com/wp-content/uploads/source_distribution/imebrajni5-release.aar').withInputStream { i -> f.withOutputStream { it << i } }
+        new URL('https://dicomhero.com/wp-content/uploads/dicomhero_6_0_0_0/dicomhero6-release-6.0.0.aar').withInputStream { i -> f.withOutputStream { it << i } }
     }
 }
 
-build.dependsOn downloadImebra
+build.dependsOn downloadDicomhero

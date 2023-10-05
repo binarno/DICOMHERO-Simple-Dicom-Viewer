@@ -1,4 +1,4 @@
-package com.binarno.imebrav5demo;
+package com.binarno.dicomhero6demo;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.imebra.*;
+import com.dicomhero.api.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // First thing: load the Imebra library
-        System.loadLibrary("imebra_lib");
+        System.loadLibrary("dicomhero6");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -80,17 +80,17 @@ public class MainActivity extends AppCompatActivity {
                 InputStream stream = getContentResolver().openInputStream(selectedfile);
 
                 // The usage of the Pipe allows to use also files on Google Drive or other providers
-                PipeStream imebraPipe = new PipeStream(32000);
+                PipeStream dicomheroPipe = new PipeStream(32000);
 
                 // Launch a separate thread that read from the InputStream and pushes the data
                 // to the Pipe.
-                Thread pushThread = new Thread(new PushToImebraPipe(imebraPipe, stream));
+                Thread pushThread = new Thread(new PushToDicomheroPipe(dicomheroPipe, stream));
                 pushThread.start();
 
                 // The CodecFactory will read from the Pipe which is feed by the thread launched
                 // before. We could just pass a file name to it but this would limit what we
                 // can read to only local files
-                DataSet loadDataSet = CodecFactory.load(new StreamReader(imebraPipe.getStreamInput()));
+                DataSet loadDataSet = CodecFactory.load(new StreamReader(dicomheroPipe.getStreamInput()));
 
 
                 // Get the first frame from the dataset (after the proper modality transforms

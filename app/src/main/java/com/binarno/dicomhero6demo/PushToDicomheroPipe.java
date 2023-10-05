@@ -1,9 +1,9 @@
-package com.binarno.imebrav5demo;
+package com.binarno.dicomhero6demo;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.imebra.*;
+import com.dicomhero.api.*;
 
 /*
 
@@ -15,12 +15,12 @@ This allows the codec to read from any InputStream returned by the file selector
 Google Drive or other internet source).
 
  */
-public class PushToImebraPipe implements Runnable {
+public class PushToDicomheroPipe implements Runnable {
 
     private PipeStream mImebraPipe;    // The Pipe into which we push the data
     private InputStream mStream; // The InputStream from which we read the data
 
-    public PushToImebraPipe(com.imebra.PipeStream pipe, InputStream stream) {
+    public PushToDicomheroPipe(com.dicomhero.api.PipeStream pipe, InputStream stream) {
         mImebraPipe = pipe;
         mStream = stream;
     }
