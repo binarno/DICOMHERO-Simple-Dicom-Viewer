@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
                 // Update the text with the patient name
-                mTextView.setText(loadDataSet.getPatientName(new TagId(0x10,0x10), 0, new PatientName("Undefined", "", "")).getAlphabeticRepresentation());
+                mTextView.setText(loadDataSet.getPatientName(new TagId(0x10,0x10), 0, new PersonName("Undefined", "", "")).getAlphabeticRepresentation());
             }
             catch(IOException e) {
                 AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
