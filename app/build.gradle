@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 34
+    namespace = "com.binarno.dicomhero6demo"
+
     defaultConfig {
         applicationId "com.binarno.dicomhero6demo"
         minSdkVersion 28
@@ -19,15 +21,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.aar'])
-    implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
 }
 
-task('downloadDicomhero', type: Copy) {
+task downloadDicomhero(type: Copy) {
     mkdir project.file("libs")
-    def f = project.file('libs/dicomhero6-release-6.0.0.aar')
+    def f = project.file('libs/dicomhero6-release-6.2.0.aar')
     if (!f.exists()) {
-        new URL('https://dicomhero.com/wp-content/uploads/dicomhero_6_0_0_0/dicomhero6-release-6.0.0.aar').withInputStream { i -> f.withOutputStream { it << i } }
+        new URL('https://dicomhero.com/wp-content/uploads/dicomhero_6_2_0_0/dicomhero6-release-6.2.0.aar').withInputStream { i -> f.withOutputStream { it << i } }
     }
 }
 
